@@ -202,6 +202,13 @@ footer{position:relative;z-index:1;border-top:1px solid rgba(0,0,0,.07);
 @media(max-width:480px){
   .prices-grid{grid-template-columns:1fr}
   .hero-stats{grid-template-columns:1fr 1fr}
+  .city-slide{min-width:200px}
+  .city-photo,.city-photo-placeholder{height:110px}
+  .city-photo-placeholder{font-size:32px}
+  .city-slide-body{padding:12px}
+  .city-slide-name{font-size:14px}
+  .city-slide-desc{font-size:12px;margin-bottom:8px}
+  .section-title{font-size:22px}
 }
 
 /* VISA MODAL */
@@ -243,9 +250,9 @@ footer{position:relative;z-index:1;border-top:1px solid rgba(0,0,0,.07);
 /* CITY PHOTO */
 .city-photo{width:100%;height:160px;object-fit:cover;border-radius:12px;
   margin-bottom:12px;background:var(--g50);min-height:160px}
-.city-photo-placeholder{width:100%;height:160px;border-radius:12px;
-  margin-bottom:12px;background:linear-gradient(135deg,var(--green-light),var(--g50));
-  display:flex;align-items:center;justify-content:center;font-size:48px}
+.city-photo-placeholder{width:100%;height:140px;border-radius:12px;
+  margin-bottom:10px;background:linear-gradient(135deg,var(--green-light),var(--g50));
+  display:flex;align-items:center;justify-content:center;font-size:40px}
 
 /* CITY SLIDER */
 .cities-slider-wrap{position:relative;overflow:hidden}
@@ -253,7 +260,7 @@ footer{position:relative;z-index:1;border-top:1px solid rgba(0,0,0,.07);
   -webkit-overflow-scrolling:touch;padding-bottom:4px;cursor:grab}
 .cities-slider::-webkit-scrollbar{display:none}
 .cities-slider:active{cursor:grabbing}
-.city-slide{min-width:280px;scroll-snap-align:start;background:var(--white);
+.city-slide{min-width:240px;scroll-snap-align:start;background:var(--white);
   border:1.5px solid var(--g100);border-radius:16px;overflow:hidden;
   cursor:pointer;transition:border-color .2s;flex-shrink:0}
 .city-slide:hover{border-color:var(--green-mid)}
