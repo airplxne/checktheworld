@@ -308,6 +308,26 @@ footer{padding:26px 48px;border-top:1px solid var(--g100);
   footer{padding:20px;justify-content:center;text-align:center}
   .flinks{flex-wrap:wrap;justify-content:center}
 }
+
+/* AUTH NAV BUTTONS */
+.auth-login-btn{
+  display:inline-block;padding:9px 20px;
+  background:var(--green);color:#fff !important;
+  border-radius:100px;font-size:14px;font-weight:600;
+  text-decoration:none;transition:background .15s;
+  font-family:'Manrope',sans-serif;
+}
+.auth-login-btn:hover{background:#155a3e}
+.auth-user-btn{
+  display:inline-flex;align-items:center;gap:7px;
+  padding:8px 18px;
+  background:var(--green-light);color:var(--green) !important;
+  border-radius:100px;font-size:14px;font-weight:600;
+  text-decoration:none;transition:background .15s;
+  border:1px solid rgba(28,122,84,.25);
+  font-family:'Manrope',sans-serif;
+}
+.auth-user-btn:hover{background:#c5eadb}
 </style>
 <script nowprocket data-noptimize="1" data-cfasync="false" data-wpfc-render="false" seraph-accel-crit="1" data-no-defer="1">
   (function () {
@@ -358,7 +378,7 @@ footer{padding:26px 48px;border-top:1px solid var(--g100);
     <a onclick="scrollToId('how-section')">Как работает</a>
     <a onclick="toast('Раздел скоро будет')">О проекте</a>
   </div>
-  <button class="nav-btn" onclick="scrollToId('cta-section')">Ранний доступ</button>
+  <div id="nav-auth-btn"></div><button class="nav-btn" onclick="scrollToId('cta-section')">Ранний доступ</button>
 </nav>
 
 <!-- HERO -->
@@ -750,6 +770,42 @@ const observer = new IntersectionObserver((entries) => {
 }, {threshold:0.12});
 revealEls.forEach(el => observer.observe(el));
 
+</script>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged, signOut }
+    from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyC_erJyfCASKgjMaMXTF4ovqfwfC4-5GmU",
+    authDomain: "checktheworld-a631d.firebaseapp.com",
+    projectId: "checktheworld-a631d",
+    storageBucket: "checktheworld-a631d.firebasestorage.app",
+    messagingSenderId: "1006756841439",
+    appId: "1:1006756841439:web:ab81d8f3f469ea3d07666a"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  onAuthStateChanged(auth, user => {
+    const btn = document.getElementById('nav-auth-btn');
+    if (!btn) return;
+    if (user) {
+      const name = user.displayName || user.email.split('@')[0];
+      btn.innerHTML = `<a href="dashboard.html" class="auth-user-btn">
+        <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
+          <circle cx="8" cy="5.5" r="2.5" stroke="currentColor" stroke-width="1.4"/>
+          <path d="M3 13.5c0-2.8 2.2-5 5-5s5 2.2 5 5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+        </svg>
+        ${name}
+      </a>`;
+    } else {
+      btn.innerHTML = `<a href="login.html" class="auth-login-btn">Войти</a>`;
+    }
+  });
+
+  window.ctw_logout = () => signOut(auth).then(() => window.location.href = 'login.html');
 </script>
 </body>
 </html>
