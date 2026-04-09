@@ -1,0 +1,31 @@
+# Принудительный редирект HTTP → HTTPS
+[[redirects]]
+  from = "http://checktheworld.ru/*"
+  to = "https://checktheworld.ru/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "http://www.checktheworld.ru/*"
+  to = "https://checktheworld.ru/:splat"
+  status = 301
+  force = true
+
+# Заголовки безопасности для всех страниц
+[[headers]]
+  for = "/*"
+  [headers.values]
+    # Запрещает встраивать сайт в iframe на других сайтах (защита от кликджекинга)
+    X-Frame-Options = "DENY"
+
+    # Браузер не будет угадывать тип файла — защита от XSS через файлы
+    X-Content-Type-Options = "nosniff"
+
+    # При переходе по ссылкам не передаёт реферер на сторонние сайты
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+    # Принудительно держит HTTPS в течение 1 года
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+
+    # Разрешает загрузку ресурсов только с доверенных источников
+    Content-Security-Policy = "default-src 'self' 'unsafe-inline' 'unsafe-eval' https:; img-src * data: blob:; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://api.emailjs.com https://tp-em.com;"
